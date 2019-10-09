@@ -6,36 +6,17 @@
 <section class="articles">
     {#(article>h2{titre...}+div.metadata{Ecrit le... à...}+div.content>img+p*2>lorem15+a.btn.btn-primary{Lire...})*5#}
     {#err: répète 2 boutons pour chaque article!!#}
-    <article>
-        <h2>titre de l'article</h2>
-        <div class="metadata">Ecrit le 10/10/2019 à 19:00 dans la catégorie Culture</div>
-        <div class="content"><img src="http://placehold.it/350x150" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad architecto aut eveniet maiores
-                necessitatibus possimus.</p>
-            <p>Aliquid dicta dolores, ducimus ex exercitationem explicabo id officiis possimus, quae reiciendis rerum
-                sed voluptatibus.<a href="{{ path('blog_show') }}" class="btn btn-primary">Lire la suite</a></p>
-        </div>
-    </article>
-    <article>
-        <h2>titre de l'article</h2>
-        <div class="metadata">Ecrit le 10/10/2019 à 19:00 dans la catégorie Culture</div>
-        <div class="content"><img src="http://placehold.it/350x150" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias blanditiis esse est eum omnis porro.
-            </p>
-            <p>Aliquid aspernatur commodi ex hic id magni minima nulla quaerat repellendus saepe sunt unde, vero.
-                <a href="{{ path('blog_show') }}" class="btn btn-primary">Lire la suite</a></p>
-        </div>
-    </article>
-    <article>
-        <h2>titre de l'article</h2>
-        <div class="metadata">Ecrit le 10/10/2019 à 19:00 dans la catégorie Culture</div>
-        <div class="content"><img src="http://placehold.it/350x150" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, porro temporibus! Dignissimos
-                quisquam repudiandae vel.</p>
-            <p>Aliquam at aut dolor expedita illo molestiae odit quae quibusdam sunt tempore, ullam unde vero.
-                <a href="{{ path('blog_show') }}" class="btn btn-primary">Lire la suite</a></p>
-        </div>
-    </article>
+    {% for article in articles %}
+        <article>
+            <h2>{{ article.title }}</h2>
+            <div class="metadata">{{ article.createdAt | date('d/m/Y') }} à {{ article.createdAt | date('H:i') }}
+                dans la catégorie Culture</div>
+            <div class="content"><img src="{{ article.image }} " alt="">
+                <p>{{ article.content | raw }}</p>
+                <a href="{{ path('blog_show', {'id':article.id }) }}" class="btn btn-primary">Lire la suite</a></p>
+            </div>
+        </article>
+    {% endfor %}
 
 </section>
 {% endblock %}
