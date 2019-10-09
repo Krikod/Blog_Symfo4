@@ -4,7 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Repository\ArticleRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class BlogController extends AbstractController
@@ -35,6 +39,44 @@ class BlogController extends AbstractController
         ));
     }
 
+    /**
+     * @Route("/blog/new", name="blog_create")
+     */
+    public function create(Request $request, ObjectManager $manager)
+        // Dep.Injection pour analyser la requête GET ou POST
+//        connaître les données qui ont été passées
+    {
+        $article = new Article();
+        $form = $this->createFormBuilder($article)
+            ->add('title', TextType::class, array(
+//                Attr si option Attribut d'HTML
+            'attr' => array(// classe css, identifiant, .
+                'placeholder' => "Titre de l'article",
+                'class' => 'form-control'
+            )
+            ))
+            ->add('content', TextareaType::class, array(
+                'attr' => array(
+                    'placeholder' => "Contenu de l'article",
+                    'class' => 'form-control'
+                )
+            ))
+            // add type que si différent de l'entité !!!
+                // sinon le form le prend de l'Entity !
+            ->add('image', TextType::class, array(
+                'attr' => array(
+                    'placeholder' => "Image de l'article",
+                    'class' => 'form-control' // pour form bootstrap
+                )
+            ))
+            ->getForm();
+
+        return $this->render('blog/create.html.twig', array(
+            'formArticle' => $form->createView()
+        ));
+    }
+//    /blog/{id} après /blog/new sinon "new" sera pris pour
+// id... Ou requirements
     /**
      * @Route("/blog/{id}", name="blog_show")
      *
