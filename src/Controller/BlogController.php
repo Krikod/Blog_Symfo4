@@ -16,4 +16,26 @@ class BlogController extends AbstractController
             'controller_name' => 'BlogController',
         ]);
     }
+
+    /**
+     * @Route("/", name="home")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function home()
+    {
+        return $this->render('blog/home.html.twig', array(
+            'title' => 'Accueil'
+        ));
+    }
+
+    /**
+     * @Route("blog/13", name="blog_show")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function show()
+    {
+        return $this->render('blog/show.html.twig');
+    }
 }
