@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,25 +43,36 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/blog/new", name="blog_create")
+     * @Route("/blog/{id}/edit", name="blog_edit")
      */
-    public function create(Request $request, ObjectManager $manager)
+//    Méthode plus "create" mais "form", peut être appelée par 2 routes différentes !
+// L'id est dans $article grâce au ParamConverter, et parfois peut être nul.
+    public function form(Article $article = null, Request $request, ObjectManager $manager)
         // Dep.Injection pour analyser la requête GET ou POST
 //        connaître les données qui ont été passées
     {
-        $article = new Article();
+        if (!$article) {
+            $article = new Article();
+        }
 
         //        Simplifier le form et utiliser form_row dans create !!
-        $form = $this->createFormBuilder($article)
-            ->add('title')
-            ->add('content')
-            ->add('image')
-            ->getForm();
+//        $form = $this->createFormBuilder($article)
+//            ->add('title')
+//            ->add('content')
+//            ->add('image')
+//            ->getForm();
 //        Les infos passées sont dans la Request, donc on demande de l'analyser
 //        Et l'article vide $article va être lié/bindé aux données/champs du form !
+
+//        Avec ArticleType, remplace createFormBuilder/->add:
+        $form = $this->createForm(ArticleType::class, $article);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $article->setCreatedAt(new  \DateTime());
+            if (!$article->getId()) {
+                $article->setCreatedAt(new  \DateTime());
+            }
 
             $manager->persist($article);
             $manager->flush();
@@ -70,7 +82,8 @@ class BlogController extends AbstractController
             ));
         }
         return $this->render('blog/create.html.twig', array(
-            'formArticle' => $form->createView()
+            'formArticle' => $form->createView(),
+            'editMode' => $article->getId() !== null // null, donc editMode
         ));
 
 
