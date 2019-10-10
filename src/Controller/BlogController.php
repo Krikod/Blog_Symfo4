@@ -48,33 +48,42 @@ class BlogController extends AbstractController
 //        connaître les données qui ont été passées
     {
         $article = new Article();
+//        Simplifier le form et utiliser form_row dans create !!
         $form = $this->createFormBuilder($article)
-            ->add('title', TextType::class, array(
-//                Attr si option Attribut d'HTML
-            'attr' => array(// classe css, identifiant, .
-                'placeholder' => "Titre de l'article",
-//                'class' => 'form-control'
-            )
-            ))
-            ->add('content', TextareaType::class, array(
-                'attr' => array(
-                    'placeholder' => "Contenu de l'article",
-//                    'class' => 'form-control'
-                )
-            ))
-            // add type que si différent de l'entité !!!
-                // sinon le form le prend de l'Entity !
-            ->add('image', TextType::class, array(
-                'attr' => array(
-                    'placeholder' => "Image de l'article",
-//                    'class' => 'form-control' // pour form bootstrap
-                )
-            ))
-//            Pas ici, pour ne pas bloquer le bouton sur Enregistrer
-//            ->add('save', SubmitType::class, array(
-//                'label' => 'Enregistrer'
-//            ))
+            ->add('title')
+            ->add('content')
+            ->add('image')
             ->getForm();
+
+
+
+//        $form = $this->createFormBuilder($article)
+//            ->add('title', TextType::class, array(
+////                Attr si option Attribut d'HTML
+//            'attr' => array(// classe css, identifiant, .
+//                'placeholder' => "Titre de l'article",
+////                'class' => 'form-control'
+//            )
+//            ))
+//            ->add('content', TextareaType::class, array(
+//                'attr' => array(
+//                    'placeholder' => "Contenu de l'article",
+////                    'class' => 'form-control'
+//                )
+//            ))
+//            // add type que si différent de l'entité !!!
+//                // sinon le form le prend de l'Entity !
+//            ->add('image', TextType::class, array(
+//                'attr' => array(
+//                    'placeholder' => "Image de l'article",
+////                    'class' => 'form-control' // pour form bootstrap
+//                )
+//            ))
+////            Pas ici, pour ne pas bloquer le bouton sur Enregistrer
+////            ->add('save', SubmitType::class, array(
+////                'label' => 'Enregistrer'
+////            ))
+//            ->getForm();
 
         return $this->render('blog/create.html.twig', array(
             'formArticle' => $form->createView()

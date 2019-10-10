@@ -4,10 +4,21 @@
 
 {% block body %}
     <h1>Création</h1>
-    {# 1/ basique #}
-    {#{{ form(formArticle ) }}#}
 
     {{ form_start(formArticle) }}
+
+    {{ form_row(formArticle.title, {'attr': {'placeholder': "Titre de l'article"}}) }}
+    {{ form_row(formArticle.content, {'attr': {'placeholder': "Contenu de l'article"}}) }}
+    {{ form_row(formArticle.image, {'attr': {'placeholder': "URL de l'image"}}) }}
+
+    <button type="submit" class="btn btn-success">Ajouter l'article</button>
+
+    {{ form_end(formArticle) }}
+
+     {#1/ basique#}
+    {#{{ form(formArticle ) }}#}
+
+    {#{{ form_start(formArticle) }}#}
     {# 2/ personnalisé #}
     {#<div class="form-group">#}
         {#<label for="">Titre</label>#}
@@ -24,19 +35,19 @@
         {#{{ form_widget(formArticle.image) }}#}
     {#</div>#}
 
-    {# 3/ Bootstrap - Template TWIG -> éliminer classes form_control
-    dans Controller, et ajouter thème Bootstrap
-    # config/packages/twig.yaml
-    twig:
-    form_themes: ['bootstrap_4_horizontal_layout.html.twig']
-    + ajout 'form_theme' en haut#}
-    {{ form_widget(formArticle) }}
+    {# 3/ Bootstrap - Template TWIG -> éliminer classes form_control#}
+    {#dans Controller, et ajouter thème Bootstrap#}
+    {## config/packages/twig.yaml#}
+    {#twig:#}
+    {#form_themes: ['bootstrap_4_horizontal_layout.html.twig']#}
+    {#+ ajout 'form_theme' en haut#}
+    {#{{ form_widget(formArticle) }}#}
     {#Ou:#}
     {#{{ form(formArticle) }}#}
     {#sans start et end, mais plus possible d'ajouter des choses#}
 {#button:submit#}
-    <button type="submit" class="btn btn-success">Ajouter l'article</button>
+    {#<button type="submit" class="btn btn-success">Ajouter l'article</button>#}
 
-    {{ form_end(formArticle) }}
+    {#{{ form_end(formArticle) }}#}
 
 {% endblock %}
