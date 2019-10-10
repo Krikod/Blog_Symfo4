@@ -48,12 +48,32 @@ class BlogController extends AbstractController
 //        connaître les données qui ont été passées
     {
         $article = new Article();
-//        Simplifier le form et utiliser form_row dans create !!
+
+        //        Simplifier le form et utiliser form_row dans create !!
         $form = $this->createFormBuilder($article)
             ->add('title')
             ->add('content')
             ->add('image')
             ->getForm();
+//        Les infos passées sont dans la Request, donc on demande de l'analyser
+//        Et l'article vide $article va être lié/bindé aux données/champs du form !
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $article->setCreatedAt(new  \DateTime());
+
+            $manager->persist($article);
+            $manager->flush();
+
+            return $this->redirectToRoute('blog_show', array(
+                'id' => $article->getId()
+            ));
+        }
+        return $this->render('blog/create.html.twig', array(
+            'formArticle' => $form->createView()
+        ));
+
+
 
 
 
@@ -85,9 +105,9 @@ class BlogController extends AbstractController
 ////            ))
 //            ->getForm();
 
-        return $this->render('blog/create.html.twig', array(
-            'formArticle' => $form->createView()
-        ));
+//        return $this->render('blog/create.html.twig', array(
+//            'formArticle' => $form->createView()
+//        ));
     }
 //    /blog/{id} après /blog/new sinon "new" sera pris pour
 // id... Ou requirements
