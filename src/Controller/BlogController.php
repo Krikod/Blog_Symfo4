@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,13 +53,13 @@ class BlogController extends AbstractController
 //                Attr si option Attribut d'HTML
             'attr' => array(// classe css, identifiant, .
                 'placeholder' => "Titre de l'article",
-                'class' => 'form-control'
+//                'class' => 'form-control'
             )
             ))
             ->add('content', TextareaType::class, array(
                 'attr' => array(
                     'placeholder' => "Contenu de l'article",
-                    'class' => 'form-control'
+//                    'class' => 'form-control'
                 )
             ))
             // add type que si différent de l'entité !!!
@@ -66,9 +67,13 @@ class BlogController extends AbstractController
             ->add('image', TextType::class, array(
                 'attr' => array(
                     'placeholder' => "Image de l'article",
-                    'class' => 'form-control' // pour form bootstrap
+//                    'class' => 'form-control' // pour form bootstrap
                 )
             ))
+//            Pas ici, pour ne pas bloquer le bouton sur Enregistrer
+//            ->add('save', SubmitType::class, array(
+//                'label' => 'Enregistrer'
+//            ))
             ->getForm();
 
         return $this->render('blog/create.html.twig', array(
