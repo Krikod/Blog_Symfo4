@@ -11,15 +11,23 @@
     {{ form_row(formArticle.content, {'attr': {'placeholder': "Contenu de l'article"}}) }}
     {{ form_row(formArticle.image, {'attr': {'placeholder': "URL de l'image"}}) }}
 
-    <button type="submit" class="btn btn-success">
-    {% if editMode %}
-        Enregistrer les modifications
-    {% else %}
-        Ajouter l'article
-    {% endif %}
-    </button>
+    {# inspecter et copier structure champs pour aligner bouton #}
+    <div class="form-group row">
+        <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-success">
+                    {% if editMode %}
+                        Enregistrer les modifications
+                    {% else %}
+                        Ajouter l'article
+                    {% endif %}
+                </button>
+            </div>
+        </div>
 
     {{ form_end(formArticle) }}
+
+
 
      {#1/ basique#}
     {#{{ form(formArticle ) }}#}
