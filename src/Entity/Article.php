@@ -21,8 +21,7 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min="10", max="255")
-     * @Assert\NotBlank(message="article.title.not_blank") todo : Not working
+     * @Assert\Length(min="10", max="255", minMessage="Le titre doit faire {{ limit }} caractères au minimum.")
      */
     private $title;
 
@@ -34,7 +33,7 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Url
+     * @Assert\Url(message="{{ value }} n'est pas une URL.")
      */
     private $image;
 
