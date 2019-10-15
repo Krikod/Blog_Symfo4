@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9d769e3e-7cc7-4d2d-b272-c3f44b993920" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/packages/security.yaml" afterPath="$PROJECT_DIR$/config/packages/security.yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Entity/User.php" afterPath="$PROJECT_DIR$/src/Entity/User.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,8 +19,8 @@
       <file leaf-file-name="User.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Entity/User.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="91" column="5" lean-forward="true" selection-start-line="84" selection-start-column="3" selection-end-line="91" selection-end-column="5" />
+            <state relative-caret-position="151">
+              <caret line="14" column="4" lean-forward="false" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
               <folding>
                 <element signature="e#30#62#0#PHP" expanded="true" />
               </folding>
@@ -350,12 +348,12 @@
       <workItem from="1570481487815" duration="167000" />
       <workItem from="1570540488899" duration="1121000" />
       <workItem from="1570542180762" duration="37540000" />
-      <workItem from="1570880573985" duration="34074000" />
+      <workItem from="1570880573985" duration="34819000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72902000" />
+    <option name="totallyTimeSpent" value="73647000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="57" y="474" width="1695" height="606" extended-state="0" />
@@ -788,8 +786,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Entity/User.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="91" column="5" lean-forward="true" selection-start-line="84" selection-start-column="3" selection-end-line="91" selection-end-column="5" />
+        <state relative-caret-position="151">
+          <caret line="14" column="4" lean-forward="false" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
           <folding>
             <element signature="e#30#62#0#PHP" expanded="true" />
           </folding>
