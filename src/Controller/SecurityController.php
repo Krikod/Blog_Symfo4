@@ -8,13 +8,15 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class SecurityController extends AbstractController
 {
     /**
      * @Route("/inscription", name="security_registration")
      */
-    public function registration(Request $request, ObjectManager $manager)
+    public function registration(Request $request, ObjectManager $manager,
+UserPasswordEncoderInterface $encoder)
     {
 //        A quel objet relier le form ? User
         $user = new User();
@@ -26,6 +28,12 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+//            Encoder le mdp avant de persister
+//            On passe $user car instance de User, et dans Secu => bcrypt pour User !
+            $hash = $encoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($hash);
+
+
             $manager->persist($user); // préparer sauvegarde user ds bdd
             $manager->flush();
         }
