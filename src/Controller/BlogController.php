@@ -3,13 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Comment;
 use App\Form\ArticleType;
+use App\Form\CommentType;
 use App\Repository\ArticleRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -24,7 +23,6 @@ class BlogController extends AbstractController
         $articles = $repo->findAll();
 
         return $this->render('blog/index.html.twig', [
-//            'controller_name' => 'BlogController',
             'articles' => $articles
         ]);
     }
@@ -124,11 +122,12 @@ class BlogController extends AbstractController
     }
 //    /blog/{id} après /blog/new sinon "new" sera pris pour
 // id... Ou requirements
+
     /**
      * @Route("/blog/{id}", name="blog_show")
      *
      */
-    public function show(Article $article)
+    public function show(Article $article, Request $request, ObjectManager $manager)
     {
 //        Injection de dépendances !!!
 //        $repo = $this->getDoctrine()->getRepository(Article::class);
@@ -136,8 +135,30 @@ class BlogController extends AbstractController
 //        $article = $repo->find($id); // On s'en passe grâce au Param Converter
 //        et injection Article $article et on supprime arg $id
 
+        $comment = new Comment();
+
+
+        // Form pour commentaires
+        $commentForm = $this->createForm(CommentType::class, $comment);
+
+        $commentForm->handleRequest($request);
+
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $comment->setCreatedAt(new  \DateTime());
+            $comment->setArticle($article);
+
+            $manager->persist($comment);
+        }
+
+        $nbComments = count($article->getComments());
+//        dump($nbComments);
+        $manager->flush();
+
         return $this->render('blog/show.html.twig', array(
-            'article' => $article
+            'article' => $article,
+            'comment' => $comment,
+            'nbComments' => $nbComments,
+            'formComment' => $commentForm->createView()
         ));
     }
 }
