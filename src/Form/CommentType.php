@@ -14,7 +14,7 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('author')
+            ->add('author') // on pourrait lier l'auteur au user
             ->add('content')
 //            ->add('createdAt')
 //            ->add('article', EntityType::class, array(

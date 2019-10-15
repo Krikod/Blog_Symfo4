@@ -148,16 +148,19 @@ class BlogController extends AbstractController
             $comment->setArticle($article);
 
             $manager->persist($comment);
+            $manager->flush();
+
+            return $this->redirectToRoute('blog_show', array(
+                'id' => $article->getId()
+            ));
         }
 
-        $nbComments = count($article->getComments());
-//        dump($nbComments);
-        $manager->flush();
+//        $nbComments = count($article->getComments());
 
         return $this->render('blog/show.html.twig', array(
             'article' => $article,
-            'comment' => $comment,
-            'nbComments' => $nbComments,
+//            'comment' => $comment,
+//            'nbComments' => $nbComments,
             'formComment' => $commentForm->createView()
         ));
     }

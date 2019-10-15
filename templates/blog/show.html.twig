@@ -5,13 +5,16 @@
         <h2>{{ article.title }}</h2>
         <div class="metadata">Ecrit le {{ article.createdAt | date('d/m/Y') }}
             à {{ article.createdAt | date('H:i') }}
-            dans la catégorie <strong>{{ article.category.title }}</strong> ({{ nbComments }} commentaires)</div>
+            dans la catégorie <strong>{{ article.category.title }}</strong>
+            {#({{ nbComments }} commentaires)#}
+        </div>
         <div class="content"><img src="{{ article.image }}" alt="">
             {{ article.content | raw }}
         </div>
     </article>
 
     <section id="commentaire">
+        <h1>{{ article.comments | length }} commentaires:</h1>
         {% for comment in article.comments %}
         <div class="comment">
             <div class="row">
