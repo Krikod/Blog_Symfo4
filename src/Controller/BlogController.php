@@ -136,7 +136,7 @@ class BlogController extends AbstractController
 //        et injection Article $article et on supprime arg $id
 
         $comment = new Comment();
-
+//      todo commentaire ne s'affiche qu'au 2eme envoi
 
         // Form pour commentaires
         $commentForm = $this->createForm(CommentType::class, $comment);
